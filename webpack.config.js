@@ -4,18 +4,18 @@
  * @author Codex Team
  * @copyright Khaydarov Murod
  */
-'use strict';
+"use strict";
 
 module.exports = (env, argv) => {
-  const path = require('path');
-  const pkg = require('./package.json');
+  const path = require("path");
+  const pkg = require("./package.json");
 
   /**
    * Environment
    *
    * @type {any}
    */
-  const NODE_ENV = argv.mode || 'development';
+  const NODE_ENV = argv.mode || "development";
   const VERSION = process.env.VERSION || pkg.version;
 
   /**
@@ -23,10 +23,10 @@ module.exports = (env, argv) => {
    *
    * @type {webpack}
    */
-  const webpack = require('webpack');
+  const webpack = require("webpack");
 
   return {
-    entry: ['./src/index.js'],
+    entry: ["./src/index.js"],
     module: {
       rules: [
         {
@@ -34,25 +34,25 @@ module.exports = (env, argv) => {
           exclude: /node_modules/,
           use: [
             {
-              loader: 'babel-loader',
-              query: {
-                presets: ['@babel/preset-env'],
+              loader: "babel-loader",
+              options: {
+                presets: ["@babel/preset-env"],
               },
             },
-            'eslint-loader',
+            "eslint-loader",
           ],
         },
         {
           test: /\.css$/,
           use: [
-            'style-loader',
-            'css-loader',
+            "style-loader",
+            "css-loader",
             {
-              loader: 'postcss-loader',
+              loader: "postcss-loader",
               options: {
                 plugins: [
-                  require('postcss-nested-ancestors'),
-                  require('postcss-nested'),
+                  require("postcss-nested-ancestors"),
+                  require("postcss-nested"),
                 ],
               },
             },
@@ -60,7 +60,10 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.svg$/,
-          loader: 'svg-inline-loader?removeSVGTagAttrs=false',
+          loader: "svg-inline-loader",
+          options: {
+            removeSVGTagAttrs: false,
+          },
         },
       ],
     },
@@ -76,12 +79,12 @@ module.exports = (env, argv) => {
       }),
     ],
     output: {
-      path: path.join(__dirname, '/dist'),
-      publicPath: '/',
-      filename: 'bundle.js',
-      library: 'ImageTool',
-      libraryTarget: 'umd',
-      libraryExport: 'default',
+      path: path.join(__dirname, "/dist"),
+      publicPath: "/",
+      filename: "bundle.js",
+      library: "ImageTool",
+      libraryTarget: "umd",
+      libraryExport: "default",
     },
   };
 };
